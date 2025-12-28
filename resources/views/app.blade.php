@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700&amp;subset=latin-ext" rel="stylesheet">
 
     @viteReactRefresh
-    @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+    @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.jsx"])
     @inertiaHead
 </head>
 
