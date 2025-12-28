@@ -13,7 +13,20 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'PT Dherva Investindo'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Description
+    |--------------------------------------------------------------------------
+    |
+    | A short description used as a sensible default for meta description
+    | tags when pages don't provide their own. Can be overridden via
+    | the APP_DESCRIPTION environment variable.
+    |
+    */
+
+    'description' => env('APP_DESCRIPTION', 'PT Dherva Investindo - Platform investasi dan manajemen portofolio.'),
 
     /*
     |--------------------------------------------------------------------------
