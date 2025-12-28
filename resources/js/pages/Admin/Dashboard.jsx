@@ -1,5 +1,6 @@
 import { router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -71,14 +72,23 @@ export default function Dashboard({ member, memberCount }) {
     );
 
     const doneHandler = (e) => {
-        router.post(
-            'done-deposit',
-            { ...data },
-            {
-                onSuccess: closeModal,
-                onError: (err) => console.log(err)
-            }
-        );
+        if (data.modal_trading === '' || data.modal_trading_masuk_jam === '' || data.profit_percentase === '') {
+            Swal.fire({
+                title: 'Error',
+                text: 'Mohon lengkapi data modal trading dan paket terlebih dahulu sebelum menyelesaikan transaksi.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            router.post(
+                'done-deposit',
+                { ...data },
+                {
+                    onSuccess: closeModal,
+                    onError: (err) => console.log(err)
+                }
+            );
+        }
     };
     console.log(memberSelect);
 

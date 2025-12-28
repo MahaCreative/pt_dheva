@@ -64,10 +64,10 @@ export default function Layout({ children }) {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.3 }}
-                                className="hidden items-center gap-2 rounded-lg border border-amber-400/40 bg-amber-500/10 px-4 py-2 md:flex"
+                                className="hidden items-center gap-2 rounded-lg border border-red-400/40 bg-red-500/10 px-4 py-2 md:flex"
                             >
-                                <span className="h-2 w-2 animate-pulse rounded-full bg-amber-400" />
-                                <span className="text-sm font-semibold text-amber-300">ONLINE</span>
+                                <span className="h-2 w-2 animate-pulse rounded-full bg-red-400" />
+                                <span className="text-sm font-semibold text-red-300">OFFLINE</span>
                             </motion.div>
 
                             {/* MOBILE BUTTON */}

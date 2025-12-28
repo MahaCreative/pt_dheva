@@ -3,7 +3,6 @@ import Swal from 'sweetalert2';
 import Layout from '../../Layout';
 import { formatRupiah } from '../FormatRupiah';
 export default function Show({ member, whatsApp }) {
-    console.log(member);
     const penarikanSaldo = () => {
         if (member.profit[member.profit.length - 1]?.total_profit > 0) {
             router.post(`/penarikan-saldo/${member.id_member}`);
