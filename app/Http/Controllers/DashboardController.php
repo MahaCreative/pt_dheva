@@ -13,7 +13,11 @@ class DashboardController extends Controller
     {
         $user = $request->user();
         $memberCount = Member::count();
-        $member = Member::with('profit')->where('user_id', $user->id)->latest()->get();
+        if ($user->role == 'admin') {
+            $member = Member::with('profit', 'user')->latest()->get();
+        } else {
+            $member = Member::with('profit')->where('user_id', $user->id)->latest()->get();
+        }
         return inertia('Admin/Dashboard', compact('member', 'memberCount'));
     }
 

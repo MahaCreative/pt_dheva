@@ -1,12 +1,15 @@
 import { Link, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import MuiIcon from './components/MuiIcon';
 import data from './pages/data';
 
 export default function Layout({ children }) {
     const { auth, referal_code } = usePage().props;
     const ref = useRef(null);
+    const navRef = useRef(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -19,6 +22,20 @@ export default function Layout({ children }) {
         }, 16);
         return () => clearInterval(interval);
     }, []);
+
+    // Handle outside click to close menu
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (navRef.current && !navRef.current.contains(event.target)) {
+                setIsMenuOpen(false);
+            }
+        }
+
+        if (isMenuOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+            return () => document.removeEventListener('mousedown', handleClickOutside);
+        }
+    }, [isMenuOpen]);
 
     const navItems = [
         { label: 'Home', href: `/${referal_code}/` },
@@ -55,7 +72,7 @@ export default function Layout({ children }) {
                     transition={{ duration: 0.6, ease: 'easeOut' }}
                     className="relative z-40 border-b border-white/10 bg-slate-900/80 shadow-xl backdrop-blur-xl"
                 >
-                    <div className="max-w-8xl mx-auto px-4">
+                    <div className="max-w-8xl mx-auto px-4" ref={navRef}>
                         <div className="flex items-center justify-between py-4">
                             <img src="/image/PT-DHERVA-INVESTINDO-14-1-20258.png" alt="Dherva Investindo" className="h-10 md:h-12" />
 
@@ -71,8 +88,12 @@ export default function Layout({ children }) {
                             </motion.div>
 
                             {/* MOBILE BUTTON */}
-                            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="rounded-lg bg-slate-800 p-2 text-white md:hidden">
-                                ☰
+                            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="rounded-lg bg-slate-800 p-2 text-white md:hidden hover:bg-slate-700 transition-colors">
+                                {isMenuOpen ? (
+                                    <CloseIcon className="w-6 h-6" />
+                                ) : (
+                                    <MenuIcon className="w-6 h-6" />
+                                )}
                             </button>
                         </div>
 
@@ -115,6 +136,7 @@ export default function Layout({ children }) {
                                                                 <Link
                                                                     key={idx}
                                                                     href={c.href}
+                                                                    onClick={() => setIsMenuOpen(false)}
                                                                     className="block px-4 py-2 text-sm text-gray-200 hover:bg-amber-400 hover:text-slate-900"
                                                                 >
                                                                     {c.label}
@@ -126,6 +148,7 @@ export default function Layout({ children }) {
                                             ) : (
                                                 <Link
                                                     href={item.href}
+                                                    onClick={() => setIsMenuOpen(false)}
                                                     className="group relative block px-4 py-4 text-sm font-semibold text-gray-200 uppercase transition hover:text-amber-400"
                                                 >
                                                     {item.label}

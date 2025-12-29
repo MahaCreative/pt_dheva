@@ -35,9 +35,19 @@ class MemberController extends Controller
         $user = User::where('referal_code', $referal_code)->first();
         $settingWa = WhatsAppSetting::where('user_id', $user->id)->first();
         $member = Member::where('id_member', $id_member)->first();
+
+        // normalisasi nomor target: jika diawali 0 => ganti leading 0 menjadi +62
+        $target = $settingWa->whatsapp ?? '';
+        if (str_starts_with($target, '0')) {
+            $target = '+62' . substr($target, 1);
+        } elseif (!str_starts_with($target, '+') && str_starts_with($target, '62')) {
+            // jika mulai dengan 62 tanpa plus, tambahkan +
+            $target = '+' . $target;
+        }
+
         SendMessageWa::send(
             [
-                'target' => $settingWa->whatsapp,
+                'target' => $target,
                 'message' => "Permintaan Penarikan Saldo dari Member:\n\nID Member: " . $member->id_member . "\nNama: " . $member->nama_member . "\nWhatsApp Member:" . $member->no_telp . "\n\nSegera proses permintaan ini."
             ]
         );

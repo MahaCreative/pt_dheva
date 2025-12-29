@@ -12,4 +12,9 @@ class Member extends Model
     {
         return $this->hasMany(Profit::class, 'id_member', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

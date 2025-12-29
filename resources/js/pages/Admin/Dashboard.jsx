@@ -107,32 +107,51 @@ export default function Dashboard({ member, memberCount }) {
                 </div>
 
                 {/* Table */}
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
+                <div className="w-full overflow-x-auto">
+                    <table className="w-full text-xs sm:text-sm">
                         <thead>
-                            <tr className="border-b-2 border-gray-200">
-                                <th className="px-4 py-3 text-left font-oswald font-semibold text-gray-700">ID Member</th>
-                                <th className="px-4 py-3 text-left font-oswald font-semibold text-gray-700">Nama Member</th>
-                                <th className="px-4 py-3 text-left font-oswald font-semibold text-gray-700">Kontak</th>
-                                <th className="px-4 py-3 text-left font-oswald font-semibold text-gray-700">Lokasi</th>
-                                <th className="px-4 py-3 text-left font-oswald font-semibold text-gray-700">Pekerjaan</th>
-                                <th className="px-4 py-3 text-center font-oswald font-semibold text-gray-700">Aksi</th>
+                            <tr className="border-b-2 border-gray-200 bg-gray-50">
+                                <th className="px-2 py-3 text-left font-oswald font-semibold text-gray-700 sm:px-4">ID Member</th>
+                                <th className="hidden px-2 py-3 text-left font-oswald font-semibold text-gray-700 sm:table-cell sm:px-4">
+                                    Nama Member
+                                </th>
+                                <th className="px-2 py-3 text-left font-oswald font-semibold text-gray-700 sm:px-4">Kontak</th>
+                                <th className="hidden px-2 py-3 text-left font-oswald font-semibold text-gray-700 sm:px-4 lg:table-cell">
+                                    Tedongnya
+                                </th>
+                                <th className="hidden px-2 py-3 text-left font-oswald font-semibold text-gray-700 sm:px-4 md:table-cell">Lokasi</th>
+                                <th className="hidden px-2 py-3 text-left font-oswald font-semibold text-gray-700 sm:px-4 lg:table-cell">
+                                    Pekerjaan
+                                </th>
+                                <th className="px-2 py-3 text-center font-oswald font-semibold text-gray-700 sm:px-4">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredMembers.map((item, key) => (
                                 <tr key={key} className="border-b border-gray-100 transition-colors duration-200 hover:bg-blue-50">
-                                    <td className="px-4 py-3 font-domine font-medium text-blue-600">{item.id_member}</td>
-                                    <td className="px-4 py-3 font-domine capitalize">{item.nama_member}</td>
-                                    <td className="px-4 py-3 font-domine text-sm text-gray-600">{item.no_telp}</td>
-                                    <td className="px-4 py-3 font-domine text-sm text-gray-600">
+                                    <td className="px-2 py-3 font-domine text-xs font-medium text-blue-600 sm:px-4 sm:text-sm">{item.id_member}</td>
+                                    <td className="hidden px-2 py-3 font-domine text-xs capitalize sm:table-cell sm:px-4 sm:text-sm">
+                                        {item.nama_member}
+                                    </td>
+                                    <td className="px-2 py-3 font-domine text-xs break-all text-gray-600 sm:px-4 sm:text-sm">{item.no_telp}</td>
+                                    <td className="hidden px-2 py-3 font-domine text-xs text-gray-600 sm:px-4 sm:text-sm lg:table-cell">
+                                        {item.user.name}
+                                    </td>
+                                    <td className="hidden px-2 py-3 font-domine text-xs text-gray-600 sm:px-4 sm:text-sm md:table-cell">
                                         {item.provinsi}/{item.kota}
                                     </td>
-                                    <td className="px-4 py-3 font-domine text-gray-600 capitalize">{item.pekerjaan}</td>
-                                    <td className="px-4 py-3 text-center">
-                                        <Button variant="primary" size="xs" onClick={() => showModal(item)} className="inline-block">
-                                            <MuiIcon name="chart" className="mr-2 inline-block" />
-                                            Lihat Transaksi
+                                    <td className="hidden px-2 py-3 font-domine text-xs text-gray-600 capitalize sm:px-4 sm:text-sm lg:table-cell">
+                                        {item.pekerjaan}
+                                    </td>
+                                    <td className="px-2 py-3 text-center sm:px-4">
+                                        <Button
+                                            variant="primary"
+                                            size="xs"
+                                            onClick={() => showModal(item)}
+                                            className="inline-block text-xs whitespace-nowrap"
+                                        >
+                                            <MuiIcon name="chart" className="mr-1 inline-block" />
+                                            <span className="hidden sm:inline">Lihat</span>
                                         </Button>
                                     </td>
                                 </tr>
@@ -151,44 +170,44 @@ export default function Dashboard({ member, memberCount }) {
             {/* Transaction Modal */}
             <Modal isOpen={showTransactionModal} onClose={closeModal} title="Buat Transaksi Member" size="full">
                 {memberSelect && (
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                         {/* Member Info */}
-                        <div className="grid grid-cols-1 gap-1 rounded-lg bg-blue-50 p-4 md:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-3 rounded-lg bg-blue-50 p-3 sm:gap-4 sm:p-4 md:grid-cols-3">
                             <div>
                                 <p className="font-domine text-xs text-gray-600 capitalize">Nama Member</p>
-                                <p className="font-oswald text-lg font-semibold text-blue-600">{memberSelect.nama_member}</p>
+                                <p className="font-oswald text-base sm:text-lg font-semibold text-blue-600 truncate">{memberSelect.nama_member}</p>
                             </div>
                             <div>
                                 <p className="font-domine text-xs text-gray-600">ID Member</p>
-                                <p className="font-oswald text-lg font-semibold text-blue-600">{memberSelect.id_member}</p>
+                                <p className="font-oswald text-base sm:text-lg font-semibold text-blue-600">{memberSelect.id_member}</p>
                             </div>
                             <div>
                                 <p className="font-domine text-xs text-gray-600">No WhatsApp</p>
-                                <p className="font-oswald text-lg font-semibold text-blue-600">{memberSelect.no_telp}</p>
+                                <p className="font-oswald text-base sm:text-lg font-semibold text-blue-600 text-sm break-all">{memberSelect.no_telp}</p>
                             </div>
                         </div>
 
                         {/* Transaction Form */}
-                        <form onSubmit={submitHandler} className="space-y-6">
-                            <div className="flex flex-row items-center gap-3">
+                        <form onSubmit={submitHandler} className="space-y-4 sm:space-y-6">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
                                 <button
                                     type="button"
                                     onClick={doneHandler}
-                                    className={`${data.status_profit == 'selesai' ? 'bg-green-500 hover:bg-green-600' : 'bg-orange-500 hover:bg-orange-600'} my-2 inline rounded-md px-3 py-2 text-xs text-white capitalize hover:cursor-pointer`}
+                                    className={`${data.status_profit == 'selesai' ? 'bg-green-500 hover:bg-green-600' : 'bg-orange-500 hover:bg-orange-600'} my-0 sm:my-2 inline rounded-md px-3 py-2 text-xs text-white capitalize hover:cursor-pointer`}
                                 >
                                     Selesaikan Transaksi
                                 </button>
-                                <div className="dropshadow-sm rounded-md bg-gray-300 px-3 py-1">
-                                    <p className="text-sm tracking-tighter text-red-500">
+                                <div className="dropshadow-sm rounded-md bg-gray-300 px-3 py-2">
+                                    <p className="text-xs sm:text-sm tracking-tighter text-red-500">
                                         *Note Tekan Tombol selesai diatas jika Pengisian Sudah Sampai Tahap Pencairan Akhir.
                                     </p>
-                                    <p className="text-sm tracking-tighter text-red-500"> Tombol diatas berguna untuk membuat Deposit Baru</p>
+                                    <p className="text-xs sm:text-sm tracking-tighter text-red-500"> Tombol diatas berguna untuk membuat Deposit Baru</p>
                                 </div>
                             </div>
                             {/* Modal Trading Section */}
-                            <div className="rounded-lg border-2 border-gray-200 px-4 py-2">
-                                <h3 className="mb-2 font-oswald text-lg font-semibold text-gray-800">💰 Data Modal Trading</h3>
-                                <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+                            <div className="rounded-lg border-2 border-gray-200 px-3 py-2 sm:px-4 sm:py-3">
+                                <h3 className="mb-2 sm:mb-3 font-oswald text-base sm:text-lg font-semibold text-gray-800">💰 Data Modal Trading</h3>
+                                <div className="grid w-full grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
                                     <Input
                                         label="Jam Masuk Deposit"
                                         type="time"
@@ -207,11 +226,11 @@ export default function Dashboard({ member, memberCount }) {
                             </div>
 
                             {/* Package Section */}
-                            <div className="rounded-lg border-2 border-gray-200 px-4 py-2">
-                                <h3 className="mb-2 font-oswald text-lg font-semibold text-gray-800">
+                            <div className="rounded-lg border-2 border-gray-200 px-3 py-2 sm:px-4 sm:py-3">
+                                <h3 className="mb-2 sm:mb-3 font-oswald text-base sm:text-lg font-semibold text-gray-800">
                                     <MuiIcon name="package" className="mr-2 inline-block" /> Paket / Profit
                                 </h3>
-                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
                                     <Input
                                         label="Kategori Paket"
                                         type="text"
@@ -230,10 +249,10 @@ export default function Dashboard({ member, memberCount }) {
                             </div>
 
                             {/* Profit Stages */}
-                            <div className="grid grid-cols-1 gap-6 space-y-4 md:grid-cols-2">
+                            <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
                                 {/* Stage 1 */}
-                                <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-4">
-                                    <h4 className="mb-2 font-semibold text-blue-800" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-3 sm:p-4">
+                                    <h4 className="mb-2 sm:mb-3 font-semibold text-sm sm:text-base text-blue-800" style={{ fontFamily: 'Poppins, sans-serif' }}>
                                         <MuiIcon name="check" className="mr-2 inline-block" /> Tahap Pertama ({data.profit_percentase}%)
                                     </h4>
                                     <div className="w-full">
@@ -247,8 +266,8 @@ export default function Dashboard({ member, memberCount }) {
                                     </div>
                                 </div>
                                 {/* Stage 2 */}
-                                <div className="rounded-lg border-2 border-orange-200 bg-orange-50 p-4">
-                                    <h4 className="mb-2 font-semibold text-orange-800" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                <div className="rounded-lg border-2 border-orange-200 bg-orange-50 p-3 sm:p-4">
+                                    <h4 className="mb-2 sm:mb-3 font-semibold text-sm sm:text-base text-orange-800" style={{ fontFamily: 'Poppins, sans-serif' }}>
                                         <MuiIcon name="bolt" className="mr-2 inline-block" /> Tahap Kedua (20%)
                                     </h4>
                                     <div className="w-full">
@@ -262,8 +281,8 @@ export default function Dashboard({ member, memberCount }) {
                                     </div>
                                 </div>
                                 {/* Final Stage */}
-                                <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-4">
-                                    <h4 className="font-oswall mb-2 font-semibold text-blue-800">
+                                <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-3 sm:p-4">
+                                    <h4 className="font-oswall mb-2 sm:mb-3 font-semibold text-sm sm:text-base text-blue-800">
                                         <MuiIcon name="flag" className="mr-2 inline-block" /> Pencairan Akhir
                                     </h4>
                                     <div className="w-full">
@@ -277,7 +296,7 @@ export default function Dashboard({ member, memberCount }) {
                                     </div>
                                 </div>
                                 {/* Total Profit */}
-                                <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-4">
+                                <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-3 sm:p-4">
                                     <Input
                                         disabled
                                         label="Total Profit (Rp)"
@@ -286,8 +305,8 @@ export default function Dashboard({ member, memberCount }) {
                                         onChange={(e) => setData('total_profit', e.target.value)}
                                         error={errors.total_profit}
                                     />
-                                    <div className="dropshadow-sm rounded-md bg-gray-300 px-3 py-1">
-                                        <p className="text-sm tracking-tighter text-red-500">
+                                    <div className="dropshadow-sm rounded-md bg-gray-300 px-3 py-2 mt-2">
+                                        <p className="text-xs sm:text-sm tracking-tighter text-red-500">
                                             *Jika sudah mengisi tahap ini Tekan Simpan Transaksi Dibawah Terlebih Dahulu Kemudian Tekan Tombol
                                             Selesaikan Transaksi Diatas
                                         </p>
@@ -296,11 +315,11 @@ export default function Dashboard({ member, memberCount }) {
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex gap-3 border-t border-gray-200 pt-6">
-                                <Button type="submit" variant="primary" size="md" className="flex-1">
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 border-t border-gray-200 pt-4 sm:pt-6">
+                                <Button type="submit" variant="primary" size="md" className="flex-1 text-sm sm:text-base">
                                     <MuiIcon name="save" className="mr-2 inline-block" /> Simpan Transaksi
                                 </Button>
-                                <Button type="button" variant="danger" size="md" className="flex-1" onClick={closeModal}>
+                                <Button type="button" variant="danger" size="md" className="flex-1 text-sm sm:text-base" onClick={closeModal}>
                                     Batal
                                 </Button>
                             </div>
