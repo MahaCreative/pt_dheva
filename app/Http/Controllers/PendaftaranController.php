@@ -23,6 +23,7 @@ class PendaftaranController extends Controller
     public function index($referal_code)
     {
         $user = User::where('referal_code', $referal_code)->first();
+        // dd($referal_code);
         $whatsApp = WhatsAppSetting::where('user_id', $user->id)->first();
         return inertia('Pendaftaran', compact('whatsApp'));
     }

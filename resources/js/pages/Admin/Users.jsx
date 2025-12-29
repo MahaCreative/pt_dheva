@@ -1,4 +1,4 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -66,7 +66,7 @@ export default function Users() {
 
     const handleDelete = (id) => {
         if (!confirm('Hapus user ini?')) return;
-        Inertia.delete(`/users/${id}`);
+        router.delete(`/users/${id}`);
     };
 
     return (

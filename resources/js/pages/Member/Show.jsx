@@ -10,7 +10,7 @@ export default function Show({ member, whatsApp }) {
             const whatsappMessage = `Halo, Admin saya ingin melakukan penarikan saldo, Harap untuk proses Penarikan Saldo saya segera di proses.`;
 
             // Nomor WhatsApp Admin (ubah sesuai nomor yang benar)
-            const adminPhone = whatsApp.whatsapp;
+            let adminPhone = whatsApp.whatsapp;
             if (adminPhone.startsWith('0')) {
                 adminPhone = '+62' + adminPhone.slice(1);
             }
