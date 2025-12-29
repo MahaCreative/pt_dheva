@@ -1,8 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import MuiIcon from './components/MuiIcon';
 import data from './pages/data';
 
@@ -88,12 +88,11 @@ export default function Layout({ children }) {
                             </motion.div>
 
                             {/* MOBILE BUTTON */}
-                            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="rounded-lg bg-slate-800 p-2 text-white md:hidden hover:bg-slate-700 transition-colors">
-                                {isMenuOpen ? (
-                                    <CloseIcon className="w-6 h-6" />
-                                ) : (
-                                    <MenuIcon className="w-6 h-6" />
-                                )}
+                            <button
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                className="rounded-lg bg-slate-800 p-2 text-white transition-colors hover:bg-slate-700 md:hidden"
+                            >
+                                {isMenuOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
                             </button>
                         </div>
 
