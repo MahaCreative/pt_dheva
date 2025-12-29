@@ -24,17 +24,17 @@ class MemberController extends Controller
 
     public function show(Request $request, $referal_code, $id_member)
     {
-        $user = User::where('referal_code', $referal_code)->first();
-        $whatsApp = WhatsAppSetting::where('user_id', $user->id)->first();
         $member = Member::with('profit')->where('id_member', $id_member)->first();
+        $user = User::where('id', $member->user_id)->first();
+        $whatsApp = WhatsAppSetting::where('user_id', $user->id)->first();
         return inertia('Member/Show', compact('member', 'whatsApp'));
     }
 
     public function penarikan_saldo(Request $request, $referal_code, $id_member)
     {
-        $user = User::where('referal_code', $referal_code)->first();
-        $settingWa = WhatsAppSetting::where('user_id', $user->id)->first();
         $member = Member::where('id_member', $id_member)->first();
+        $user = User::where('id', $member->user_id)->first();
+        $settingWa = WhatsAppSetting::where('user_id', $user->id)->first();
 
         // normalisasi nomor target: jika diawali 0 => ganti leading 0 menjadi +62
         $target = $settingWa->whatsapp ?? '';
