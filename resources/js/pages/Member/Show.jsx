@@ -49,7 +49,8 @@ export default function Show({ member, whatsApp }) {
                     <thead>
                         <tr>
                             <th colSpan={2} className="w-full border-b bg-orange-500 text-center">
-                                PAKET {member.profit[0]?.kategori_paket} PROFIT {member.profit[0]?.profit_percentase}% PER 2 JAM
+                                PAKET {member.profit[member.profit.length - 1]?.kategori_paket} PROFIT{' '}
+                                {member.profit[member.profit.length - 1]?.profit_percentase}% PER 2 JAM
                             </th>
                         </tr>
                         <tr>
@@ -67,28 +68,38 @@ export default function Show({ member, whatsApp }) {
                         <tr>
                             <th className="border text-center font-oswald">
                                 <p className="px-4 font-domine text-[0.6rem] tracking-tighter md:text-xs">
-                                    PENCAIRAN MODAL TRADING PAKET {member.profit[0]?.kategori_paket} SYARAT & KETENTUAN BERLAKU
+                                    PENCAIRAN MODAL TRADING PAKET {member.profit[member.profit.length - 1]?.kategori_paket} SYARAT & KETENTUAN BERLAKU
                                 </p>
                                 <p className="mt-4 h-[70px] px-4 text-lg font-medium text-blue-600 md:text-xl lg:text-2xl">
-                                    MODAL TRADING IDR {formatRupiah(member.profit[0]?.modal_trading)}
+                                    MODAL TRADING IDR {formatRupiah(member.profit[member.profit.length - 1]?.modal_trading)}
                                 </p>
                                 <p className="px-4 font-domine tracking-tighter">
-                                    Status : <span className="font-bold text-orange-600">Open</span>
+                                    Status :{' '}
+                                    <span
+                                        className={`font-bold ${member.profit[member.profit.length - 1]?.modal_trading > 0 ? 'text-green-500' : 'text-red-600'} `}
+                                    >
+                                        {member.profit[member.profit.length - 1]?.modal_trading > 0 ? 'Open' : 'Close'}
+                                    </span>
                                 </p>
                                 <p className="h-[40px] py-1 font-oswald text-xs font-bold tracking-tighter text-white md:text-xl"></p>
                             </th>
                             <th className="border text-center font-oswald">
                                 <p className="px-4 font-domine text-[0.6rem] tracking-tighter md:text-xs">
-                                    PENCAIRAN MODAL TRADING PAKET {member.profit[0]?.kategori_paket} SYARAT & KETENTUAN BERLAKU
+                                    PENCAIRAN MODAL TRADING PAKET {member.profit[member.profit.length - 1]?.kategori_paket} SYARAT & KETENTUAN BERLAKU
                                 </p>
                                 <p className="mt-4 h-[70px] px-4 text-lg font-medium text-blue-600 md:text-xl lg:text-2xl">
-                                    PROFIT {member.profit[0]?.profit_percentase}% PER 2JAM
+                                    PROFIT {member.profit[member.profit.length - 1]?.profit_percentase}% PER 2JAM
                                 </p>
                                 <p className="px-4 font-domine tracking-tighter">
-                                    Status : <span className="font-bold text-blue-500">On Proses</span>
+                                    Status :{' '}
+                                    <span
+                                        className={`font-bold ${member.profit[member.profit.length - 1]?.modal_trading > 0 ? 'text-blue-500' : 'text-red-600'} `}
+                                    >
+                                        {member.profit[member.profit.length - 1]?.modal_trading > 0 ? 'On Proses' : 'Close'}
+                                    </span>
                                 </p>
                                 <p className="flex h-[40px] items-center justify-center bg-black py-1 font-oswald text-base font-bold tracking-tighter text-white md:text-xl">
-                                    Saldo : Rp.{formatRupiah(member.profit[member.profit.length - 1]?.total_profit || 0)}
+                                    Saldo : {formatRupiah(member.profit[member.profit.length - 1]?.total_profit || 0)}
                                 </p>
                             </th>
                         </tr>
@@ -126,7 +137,7 @@ export default function Show({ member, whatsApp }) {
                 </table>
 
                 <h1 className="py-3 pt-6 font-oswald text-xl font-bold text-gray-800">
-                    JADWAL PENCAIRAN PROFIT DAN MODAL PAKET {member.profit[0]?.kategori_paket}
+                    JADWAL PENCAIRAN PROFIT DAN MODAL PAKET {member.profit[member.profit.length - 1]?.kategori_paket}
                 </h1>
                 <div className="w-full overflow-x-auto rounded-lg shadow-md">
                     <table className="w-full border-collapse">
