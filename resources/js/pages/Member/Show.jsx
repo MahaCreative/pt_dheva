@@ -49,7 +49,7 @@ export default function Show({ member, whatsApp }) {
                     <thead>
                         <tr>
                             <th colSpan={2} className="w-full border-b bg-orange-500 text-center">
-                                PAKET A PROFIT
+                                PAKET {member.profit[0]?.kategori_paket} PROFIT {member.profit[0]?.profit_percentase}% PER 2 JAM
                             </th>
                         </tr>
                         <tr>
@@ -67,7 +67,7 @@ export default function Show({ member, whatsApp }) {
                         <tr>
                             <th className="border text-center font-oswald">
                                 <p className="px-4 font-domine text-[0.6rem] tracking-tighter md:text-xs">
-                                    PENCAIRAN MODAL TRADING PAKET B SYARAT & KETENTUAN BERLAKU
+                                    PENCAIRAN MODAL TRADING PAKET {member.profit[0]?.kategori_paket} SYARAT & KETENTUAN BERLAKU
                                 </p>
                                 <p className="mt-4 h-[70px] px-4 text-lg font-medium text-blue-600 md:text-xl lg:text-2xl">
                                     MODAL TRADING IDR {formatRupiah(member.profit[0]?.modal_trading)}
