@@ -79,7 +79,7 @@ export default function Show({ member, whatsApp }) {
                             </th>
                             <th className="border text-center font-oswald">
                                 <p className="px-4 font-domine text-[0.6rem] tracking-tighter md:text-xs">
-                                    PENCAIRAN MODAL TRADING PAKET B SYARAT & KETENTUAN BERLAKU
+                                    PENCAIRAN MODAL TRADING PAKET {member.profit[0]?.kategori_paket} SYARAT & KETENTUAN BERLAKU
                                 </p>
                                 <p className="mt-4 h-[70px] px-4 text-lg font-medium text-blue-600 md:text-xl lg:text-2xl">
                                     PROFIT {member.profit[0]?.profit_percentase}% PER 2JAM
@@ -125,7 +125,9 @@ export default function Show({ member, whatsApp }) {
                     </thead>
                 </table>
 
-                <h1 className="py-3 pt-6 font-oswald text-xl font-bold text-gray-800">JADWAL PENCAIRAN PROFIT DAN MODAL PAKET B</h1>
+                <h1 className="py-3 pt-6 font-oswald text-xl font-bold text-gray-800">
+                    JADWAL PENCAIRAN PROFIT DAN MODAL PAKET {member.profit[0]?.kategori_paket}
+                </h1>
                 <div className="w-full overflow-x-auto rounded-lg shadow-md">
                     <table className="w-full border-collapse">
                         <thead>
