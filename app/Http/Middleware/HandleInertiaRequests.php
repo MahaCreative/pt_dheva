@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
         $request->user();
-        $get_wa = WhatsAppSetting::where('user_id', $request->user()->id)->first();
+        $get_wa = $request->user() ? WhatsAppSetting::where('user_id', $request->user()->id)->first() : null;
         return [
             ...parent::share($request),
 
