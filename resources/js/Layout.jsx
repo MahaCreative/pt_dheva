@@ -243,7 +243,7 @@ export default function Layout({ children }) {
                                 📧 info@dherva.com
                             </Info>
                             <Info title="Jam Operasional">
-                                Senin - Jumat: 09.00 - 17.00 WIB
+                                Senin - Jumat: 09.00 - 11.45 WIB
                                 <br />
                                 Weekend: Tutup
                             </Info>

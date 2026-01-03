@@ -6,6 +6,7 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import MuiIcon from '../../components/MuiIcon';
+import { formatRupiah } from '../FormatRupiah';
 import LayoutAdmin from '../LayoutAdmin';
 
 export default function Dashboard({ member, memberCount }) {
@@ -90,6 +91,48 @@ export default function Dashboard({ member, memberCount }) {
             );
         }
     };
+    const deleteItem = (id) => {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: 'Data yang dihapus tidak dapat dikembalikan!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(`/admin/member/${id}`, {
+                    onSuccess: () => {
+                        Swal.fire('Terhapus!', 'Data member telah dihapus.', 'success');
+                    }
+                });
+            }
+        });
+    };
+    const deleteTransaksi = (id) => {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: 'Data transaksi yang dihapus tidak dapat dikembalikan!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(`/admin/profit/${id}`, {
+                    onSuccess: () => {
+                        Swal.fire('Terhapus!', 'Data transaksi telah dihapus.', 'success');
+                    },
+                    onError: (err) => {
+                        Swal.fire('Gagal!', `${err?.error}`, 'error');
+                        console.log(err);
+                    }
+                });
+            }
+        });
+    };
     console.log(memberSelect);
 
     return (
@@ -143,15 +186,24 @@ export default function Dashboard({ member, memberCount }) {
                                     <td className="hidden px-2 py-3 font-domine text-xs text-gray-600 capitalize sm:px-4 sm:text-sm lg:table-cell">
                                         {item.pekerjaan}
                                     </td>
-                                    <td className="px-2 py-3 text-center sm:px-4">
+                                    <td className="sm:px- flex flex-col items-center gap-2 px-2 py-3 text-center sm:justify-center">
                                         <Button
                                             variant="primary"
                                             size="xs"
                                             onClick={() => showModal(item)}
                                             className="inline-block text-xs whitespace-nowrap"
                                         >
-                                            <MuiIcon name="chart" className="mr-1 inline-block" />
+                                            {/* <MuiIcon name="chart" className="mr-1 inline-block" /> */}
                                             <span className="hidden sm:inline">Lihat</span>
+                                        </Button>
+                                        <Button
+                                            variant="danger"
+                                            size="xs"
+                                            onClick={() => deleteItem(item.id)}
+                                            className="inline-block text-xs whitespace-nowrap"
+                                        >
+                                            {/* <MuiIcon name="trash" className="mr-1 inline-block" /> */}
+                                            <span className="hidden sm:inline">Delete</span>
                                         </Button>
                                     </td>
                                 </tr>
@@ -336,6 +388,77 @@ export default function Dashboard({ member, memberCount }) {
                         </form>
                     </div>
                 )}
+                <div className="py-4">
+                    {memberSelect && (
+                        <table className="w-full border-collapse">
+                            <thead>
+                                <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                                    <th className="border-b-2 border-blue-800 px-4 py-4 text-left text-xs font-semibold tracking-wide">
+                                        JUMLAH MODAL TRADING
+                                    </th>
+                                    <th className="border-b-2 border-blue-800 px-4 py-4 text-center text-xs font-semibold tracking-wide">
+                                        MODAL MASUK JAM
+                                    </th>
+                                    <th className="border-b-2 border-blue-800 px-4 py-4 text-center text-xs font-semibold tracking-wide">
+                                        PROFIT 20% TAHAP I
+                                    </th>
+                                    <th className="border-b-2 border-blue-800 px-4 py-4 text-center text-xs font-semibold tracking-wide">
+                                        PROFIT 20% TAHAP II
+                                    </th>
+                                    <th className="border-b-2 border-blue-800 px-4 py-4 text-center text-xs font-semibold tracking-wide">
+                                        PENCAIRAN AKHIR
+                                    </th>
+                                    <th className="border-b-2 border-blue-800 px-4 py-4 text-center text-xs font-semibold tracking-wide">
+                                        TOTAL PROFIT
+                                    </th>
+                                    <th className="border-b-2 border-blue-800 px-4 py-4 text-center text-xs font-semibold tracking-wide">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {memberSelect.profit && memberSelect.profit.length > 0 ? (
+                                    memberSelect.profit.map((item, i) => (
+                                        <tr
+                                            key={`profit-data-${i}`}
+                                            className="border border-gray-300 bg-blue-100 transition-colors hover:bg-blue-200"
+                                        >
+                                            <td className={`border-r border-gray-300 px-4 py-4 text-sm font-semibold text-gray-800`}>
+                                                {item.modal_trading ? formatRupiah(item.modal_trading) : 'Rp. 0'}
+                                            </td>
+                                            <td className={`border-r border-gray-300 px-4 py-4 text-center text-sm text-gray-700`}>
+                                                {item.modal_trading_masuk_jam ? item.modal_trading_masuk_jam + ' WIB' : '-'}
+                                            </td>
+                                            <td className={`border-r border-gray-300 px-4 py-4 text-center text-sm text-gray-700`}>
+                                                {item.jam_tahap_pertama ? item.jam_tahap_pertama + ' WIB' : '-'}
+                                            </td>
+                                            <td className={`border-r border-gray-300 px-4 py-4 text-center text-sm text-gray-700`}>
+                                                {item.jam_tahap_kedua ? item.jam_tahap_kedua + ' WIB' : '-'}
+                                            </td>
+                                            <td className={`border-r border-gray-300 px-4 py-4 text-center text-sm text-gray-700`}>
+                                                {item.jam_akhir ? item.jam_akhir + ' WIB' : '-'}
+                                            </td>
+                                            <td className={`px-4 py-4 text-center text-sm text-gray-700`}>
+                                                {item.profit_percentase ? item.profit_percentase + '%' : '-'}
+                                            </td>
+                                            <td className={`px-4 py-4 text-center text-sm text-gray-700`}>
+                                                <Button
+                                                    variant="danger"
+                                                    size="xs"
+                                                    onClick={() => deleteTransaksi(item.id)}
+                                                    className="inline-block text-xs whitespace-nowrap"
+                                                >
+                                                    {/* <MuiIcon name="trash" className="mr-1 inline-block" /> */}
+                                                    <span className="hidden sm:inline">Delete</span>
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <></>
+                                )}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
             </Modal>
         </div>
     );

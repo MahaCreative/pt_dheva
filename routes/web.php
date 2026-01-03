@@ -33,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('admin/member/{id}', [DashboardController::class, 'member_delete'])->name('member_delete');
+    Route::delete('admin/profit/{id}', [DashboardController::class, 'profit_delete'])->name('profit_delete');
 });
 Route::prefix('{referal_code}')->where(['referal_code' => '[a-zA-Z0-9\-]+'])->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');

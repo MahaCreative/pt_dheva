@@ -155,4 +155,39 @@ class DashboardController extends Controller
             );
         }
     }
+
+    public function member_delete(Request $request, $id)
+    {
+        $member = Member::find($id);
+        if ($member) {
+            $member->delete();
+            return redirect()->back()->with('success', 'Member berhasil dihapus');
+        } else {
+            return redirect()->back()->with('error', 'Member tidak ditemukan');
+        }
+    }
+
+    public function profit_delete(Request $request, $id)
+    {
+        $profit = Profit::find($id);
+        $member = Member::with('profit')->find($profit->id_member);
+
+
+        if ($profit) {
+
+
+            if (count($member->profit) <= 1) {
+                return back()->withErrors([
+                    'error' => 'Profit terakhir tidak dapat dihapus. Silakan hapus member jika ingin menghapus profit terakhir.'
+                ]);
+            } else {
+                $profit->delete();
+            }
+        } else {
+
+            return back()->withErrors([
+                'error' => 'Profit  tidak ditemukan'
+            ]);
+        }
+    }
 }

@@ -172,7 +172,7 @@ Nama Bank: ${data.nama_bank}\
         }
         // Untuk membuka wa.me gunakan nomor tanpa plus
         const adminPhoneForUrl = adminPhone.replace(/^\+/, '');
-        const whatsappUrl = `https://wa.me/${adminPhoneForUrl}?text=${encodeURIComponent(whatsappMessage)}`;
+
         // Kirim data ke server
         post(`/${referal_code}/store-pendaftaran-member`, {
             preserveScroll: true,
@@ -184,6 +184,8 @@ Nama Bank: ${data.nama_bank}\
                     text: 'Pendaftaran member berhasil. Pesan telah dikirim ke WhatsApp admin. Silahkan menunggu konfirmasi dari admin untuk proses lebih lanjut',
                     confirmButtonColor: '#2563eb'
                 });
+                const whatsappUrl = `https://wa.me/${adminPhoneForUrl}?text=${encodeURIComponent(whatsappMessage)}`;
+                window.open(whatsappUrl, '_blank');
                 reset();
                 setStep(1);
 
@@ -201,7 +203,6 @@ Nama Bank: ${data.nama_bank}\
             }
         });
         // Kirim ke WhatsApp
-        window.open(whatsappUrl, '_blank');
 
         // Tampilkan loading
         Swal.fire({
