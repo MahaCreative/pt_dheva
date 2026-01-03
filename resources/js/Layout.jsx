@@ -240,7 +240,7 @@ export default function Layout({ children }) {
                             <Info title="Kontak">
                                 <MuiIcon name="phone" /> CS 24/7
                                 <br />
-                                📧 info@dherva.com
+                                📧 info@dherva.site
                             </Info>
                             <Info title="Jam Operasional">
                                 Senin - Jumat: 09.00 - 11.45 WIB
