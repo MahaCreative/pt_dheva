@@ -53,9 +53,9 @@ Route::get('delete/{member_id}', function (Request $request, $member_id) {
     $member = Member::with('profit')->where('id_member', $member_id)->first();
 
     if ($member) {
-        $profit = Profit::create(['
-        id_member' => $member->id,
-    ]);
+        $profit = Profit::create([
+            'id_member' => $member->id,
+        ]);
 
 
         return "Member and associated profits deleted.";
