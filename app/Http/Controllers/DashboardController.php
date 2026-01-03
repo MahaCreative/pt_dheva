@@ -45,7 +45,7 @@ class DashboardController extends Controller
             $nominal = (int) $value;
 
             // Range nominal
-            if ($nominal < 10000 || $nominal > 1000000000) {
+            if ($nominal < 0 || $nominal > 1000000000) {
                 $fail("{$attribute} harus antara 10000 sampai 1000000000.");
             }
         };
@@ -63,9 +63,9 @@ class DashboardController extends Controller
             'modal_trading' => 'required|numeric|min:0',
             'modal_trading_masuk_jam' => 'required|date_format:H:i',
             'total_profit' => 'nullable|numeric|min:0',
-            'profit_tahap_pertama' => ['nullable', $validateStatusOrNominal],
-            'profit_tahap_kedua'   => ['nullable', $validateStatusOrNominal],
-            'profit_akhir'         => ['nullable', $validateStatusOrNominal],
+            'profit_tahap_pertama' => ['nullable'],
+            'profit_tahap_kedua'   => ['nullable'],
+            'profit_akhir'         => ['nullable'],
         ]);
 
         /**
